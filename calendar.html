@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be My Valentine?</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Sacramento&family=Quicksand:wght@400;600&display=swap');
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(to right, #8E24AA, #F8BBD0);
+            font-family: 'Quicksand', sans-serif;
+            text-align: center;
+            overflow: hidden;
+            position: relative;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: white;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.4);
+            max-width: 500px;
+            z-index: 2;
+            position: relative;
+        }
+        .tulip {
+            width: 140px;
+            margin-bottom: 20px;
+        }
+        .question-box {
+            padding: 20px;
+        }
+        h2 {
+            font-family: 'Sacramento', cursive;
+            font-size: 42px;
+            color: #6A1B9A;
+        }
+        .buttons {
+            margin-top: 20px;
+        }
+        button {
+            padding: 14px 35px;
+            font-size: 22px;
+            margin: 10px;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: bold;
+        }
+        button:hover {
+            transform: scale(1.2);
+        }
+        #yesBtn {
+            background: #D81B60;
+            color: white;
+        }
+        #noBtn {
+            background: #7E57C2;
+            color: white;
+            position: absolute;
+        }
+        .cat {
+            position: absolute;
+            width: 130px;
+            animation: dance 2s infinite alternate ease-in-out;
+        }
+        .yay-box {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #E91E63;
+            color: white;
+            font-size: 52px;
+            font-weight: bold;
+            padding: 60px;
+            border-radius: 20px;
+            box-shadow: 0 6px 25px rgba(0, 0, 0, 0.5);
+            text-align: center;
+        }
+        @keyframes dance {
+            from { transform: rotate(-10deg); }
+            to { transform: rotate(10deg); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container" id="container">
+        <img src="purpletulip.gif" alt="Purple Tulip" class="tulip">
+        <div class="question-box">
+            <h2>Will you be my Valentine? 💜</h2>
+            <div class="buttons">
+                <button id="yesBtn" onclick="yesClicked()">Yes</button>
+                <button id="noBtn">No</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="yay-box" id="yayBox">YAYYYYY!!! 🎉💜💖</div>
+    
+    <script>
+        function yesClicked() {
+            document.getElementById("yayBox").style.display = "block";
+            alert("YAYYY THANK YOUUU!!! 💜💖");
+            const catGifs = [
+                'cat.gif',
+                'cat2.gif',
+                'cat3.gif'
+            ];
+            for (let i = 0; i < 30; i++) {
+                let cat = document.createElement('img');
+                cat.src = catGifs[Math.floor(i / 10)];
+                cat.className = 'cat';
+                cat.style.left = Math.random() * window.innerWidth + 'px';
+                cat.style.top = Math.random() * window.innerHeight + 'px';
+                document.body.appendChild(cat);
+            }
+        }
+        
+        document.addEventListener('mousemove', function(event) {
+            let noBtn = document.getElementById('noBtn');
+            let noBtnRect = noBtn.getBoundingClientRect();
+            let mouseX = event.clientX;
+            let mouseY = event.clientY;
+            
+            let dx = noBtnRect.left + noBtnRect.width / 2 - mouseX;
+            let dy = noBtnRect.top + noBtnRect.height / 2 - mouseY;
+            let distance = Math.sqrt(dx * dx + dy * dy);
+            
+            if (distance < 100) {
+                let moveX = (dx / distance) * 150;
+                let moveY = (dy / distance) * 150;
+                
+                noBtn.style.transform = `translate(${moveX}px, ${moveY}px)`;
+            }
+        });
+    </script>
+</body>
+</html>
+
